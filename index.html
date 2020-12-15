@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>menu</title>
+		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet" />
+		<style type="text/css">
+			html,body{background: #f1f1f1;}
+			h1,h2{margin: 0;padding-top: 20px;padding-bottom: 10px;text-indent: 24px;}
+			.row{position: relative;margin-top: 10px;}
+			.row .box{border-radius: 3px;padding-bottom: 5px;}
+			.box dt{text-align: center;padding-top: 10px;margin-bottom: 5px;}
+			.box dd{text-indent: 12px;}
+			.box dd a{color: #333;text-decoration: none;}
+			.box dd a:hover{text-decoration: underline;}
+			.box dd a.text-disabled{color: #ccc;}
+		</style>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h2 class="alert alert-primary">练习-页面导航</h2>
+			<div class="row">
+				<div class="col-3">
+					<dl class="box alert-secondary">
+			        	<dt class="alert-success">图表相关</dt>
+			            <dd>
+			            	<a target="_block" href="./views/chart-html/index.html">html + css</a>
+			            </dd>
+			        </dl>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+        		$('.row').masonry({
+		            itemSelector: '.col-xs-3',
+		            columnWidth: 0 //每两列之间的间隙为5像素
+		        });
+        	});
+		</script>
+	</body>
+</html>

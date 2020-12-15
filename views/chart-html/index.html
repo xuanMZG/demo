@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>chart for html</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;border: 0}
+			.container{
+				height: 400px;
+				width: 1080px;
+				margin: 20px auto;
+			}
+			.leftbar{
+				float: left;
+				width: 500px;
+				height: 400px;
+			}
+			.rightbar{
+				float: right;
+				width: 500px;
+				height: 400px;
+			}
+		</style>
+		<script src="./index.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="leftbar"></div>
+			<div class="rightbar"></div>
+		</div>
+		<script type="text/javascript">
+			vCharts({
+				$el: document.querySelector('.leftbar'),
+				type: 'bar',
+				series: [
+					{
+						data: [15, 11, 17, 25, 37]
+					}, {
+						data: [25, 26, 40, 45, 68]
+					}, {
+						data: [25, 26, 40, 45, 68]
+					}
+				]
+			})
+
+			vCharts.create({
+				$el: document.querySelector('.rightbar'),
+				type: 'pie',
+				series: [15, 11, 17, 25, 37]
+			})
+		</script>
+	</body>
+</html>
