@@ -6,10 +6,11 @@
 		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet" />
 		<style type="text/css">
 			html,body{background: #f1f1f1;}
+			*{box-sizing: border-box;}
 			h1,h2{margin: 0;padding-top: 20px;padding-bottom: 10px;text-indent: 24px;}
 			.row{position: relative;margin-top: 10px;}
 			.row .box{border-radius: 3px;padding-bottom: 5px;}
-			.box dt{text-align: center;padding-top: 10px;margin-bottom: 5px;}
+			.box dt{text-align: center;padding: 8px;margin-bottom: 5px;}
 			.box dd{text-indent: 12px;}
 			.box dd a{color: #333;text-decoration: none;}
 			.box dd a:hover{text-decoration: underline;}
@@ -22,13 +23,24 @@
 	</head>
 	<body>
 		<div class="container">
-			<h2 class="alert alert-primary">练习-页面导航</h2>
+			<h2 class="alert alert-primary">练习页面导航</h2>
 			<div class="row">
 				<div class="col-3">
 					<dl class="box alert-secondary">
 			        	<dt class="alert-success">图表相关</dt>
 			            <dd>
 			            	<a target="_block" href="./views/chart-html/index.html">html + css</a>
+			            </dd>
+			            <dd>
+			            	<a target="_block" href="./views/chart-svg/index.html">svg</a>
+			            </dd>
+			        </dl>
+				</div>
+				<div class="col-3">
+					<dl class="box alert-secondary">
+			        	<dt class="alert-success">vue相关</dt>
+			            <dd>
+			            	<a target="_block" href="./views/vue-accordion/index.html">自用手风琴组件</a>
 			            </dd>
 			        </dl>
 				</div>

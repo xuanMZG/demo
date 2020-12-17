@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue accordion</title>
+		<style type="text/less">
+			*{
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			html, body{
+				width: 100%;
+				height: 100%;
+			}
+			.accordion-container{
+			    width: 920px;
+			    margin: 20px auto;
+			    overflow: hidden;
+				.accordion-item{
+					display: inline-block;
+					position: relative;
+					border-radius: 4px;
+					background-clip: border-box;
+					z-index: 1;
+					transition: width 0.3s;
+					background-color: #ffffff;
+					&.active{
+						z-index: 2;
+						&:after{
+							background: rgba(102, 102, 102, 0);
+						}
+						.accordion-box{
+							.accordion-main{
+								.accordion-tips{
+									background: #2179FF;
+								}
+							}
+						}
+					}
+					&:after{
+						content: ' ';
+						display: block;
+						position: absolute;
+						left: 0;
+						top: 0;
+						right: 0;
+						bottom: 0;
+						background: rgba(102, 102, 102, 0.3);
+						transition: all 0.3s;
+						cursor: pointer;
+					}
+					.accordion-box{
+						width: 250px;
+						box-shadow: -4px 0 4px 0 #999999;
+						.accordion-banner{
+							width: 100%;
+							height: 165px;
+							background-position: center center;
+							background-repeat: no-repeat;
+							background-size: cover;
+						}
+						.accordion-main{
+							padding: 18px 20px;
+							.accordion-title{
+								font-size: 12px;
+								color: #333333;
+								line-height: 17px;
+								margin-bottom: 8px;
+							}
+							.accordion-tips{
+								width: 23px;
+								height: 3px;
+								border-radius: 1px;
+								background: rgba(204, 204, 204, 1);
+								margin: 8px;
+								transition: all 0.3s;
+							}
+							.accordion-msg{
+								width: 100%;
+								height: 56px;
+								line-height: 14px;
+								font-size: 10px;
+								color: #999999;
+								display: -webkit-box;
+								-webkit-box-orient: vertical;
+								-webkit-line-clamp: 4;
+								overflow: hidden;
+							}
+						}
+					}
+				}
+			}
+		</style>
+		<script src="https://cdn.bootcdn.net/ajax/libs/less.js/3.13.0/less.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+	</head>
+	<body>
+		<div
+			id="app"
+			class="accordion-container"
+			@mouseout="mouseoutEvent"
+		>
+			<div
+				v-for="(item, idx) in list"
+				:key="idx"
+				class="accordion-item"
+				:class="{
+					active: activeIndex === idx
+				}"
+				:style="`width: ${activeIndex >= 0 ? activeIndex === idx ? 250 : 670 / (list.length - 1) : 920 / list.length}px`"
+				sty
+				@mouseover="mouseoverEvent(idx)"
+        		@click="clickEvent(item)"
+			>
+				<div class="accordion-box">
+					<div
+						class="accordion-banner"
+						:style="`background-image: url(${item.url});`"
+					></div>
+					<div class="accordion-main">
+						<div>
+							<div class="accordion-title">
+								{{ item.title }}
+							</div>
+							<div class="accordion-tips" ></div>
+							<div class="accordion-msg">
+								{{ item.msg }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data: {
+					activeIndex: 0,
+					list: [
+					    {
+							url: '../../images/van_coupon.png',
+							title: '反物质',
+							msg: '一旦反物质与物质相接触，在电光火石之间就会相互湮灭，并且释放出禁锢了数亿年的所有能量。因此，反物质被认为是新世纪的一项前沿技术，可以作为一种完美的能源。当然，它这种可以消灭物质于无形的潜力，更使得它可以作为一种具有巨大杀伤力的终极武器。',
+							page: 'https://baidu.com'
+					    }, {
+							url: '../../images/van_coupon.png',
+							title: '切开忧郁的洋葱',
+							msg: '自然界的风花雪月，人生的悲欢离合，从宋玉的悲秋之赋到绿肥红瘦的喟叹，从游子的枯藤老树昏鸦到弱女子的耿耿秋打凄凉，忧郁如同一只老狗，忠实而疲倦地追着人们的脚后跟，挥之不去',
+							page: 'https://www.so.com/?src=so.com'
+					    }, {
+							url: '../../images/van_coupon.png',
+							title: '不为遇见，只为远方',
+							msg: '如果可以，死后我的骨灰要分成四份。\
+							一份找个锦囊，装于其中，做成项链，赠与爱人。\
+							一份找个森林，埋于树下，化作春泥，命延树根。\
+							一份找个深谷，撒于山下，被风吹散，流浪天涯。\
+							一份找个海边，撒于深海，随波逐流，渡向来生。\
+							渡我到我的来生。',
+							page: 'https://www.sogou.com/'
+					    }, {
+							url: '../../images/van_coupon.png',
+							title: '把你交给时间',
+							msg: '旅行就像是从一间因为暖气太足而缺氧的房间走到寒冷但空气新鲜的室外，异乡人的身份让我更加明显地看清自己的状态，无论是性格中的不成熟之处，还是对生活日益稳健的把控力：即便不被所有人理解，但我确实在按自己想要的方式走下去。',
+							page: 'https://www.taobao.com/'
+					    }, {
+							url: '../../images/van_coupon.png',
+							title: '置身于苦难与阳光之间',
+							msg: '走向我的东西并不是对更加美好的日子的希望，而是对于一切、对我自己纯净而又原始的冷漠。但是，应该粉碎这过于柔软、过于容易的曲线。我需要我的清醒，是的。一切都是简单的，是人自己使事物变复杂了。',
+							page: 'https://www.jd.com/'
+					    }, {
+							url: '../../images/van_coupon.png',
+							title: '我开始轻视语言',
+							msg: '我们终会了解，幸福的故事永远千篇一律面目模糊，唯有痛苦和恐惧，会令我们深刻地思考并获得心灵的启示。',
+							page: 'https://www.pinduoduo.com/'
+					    }
+					 ]
+				},
+				methods: {
+					mouseoutEvent () {
+						this.activeIndex = 0
+					},
+					mouseoverEvent (idx) {
+						this.activeIndex = idx
+					},
+					clickEvent (item) {
+						if (item.page) {
+							window.open(item.page)
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
