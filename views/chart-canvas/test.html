@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function test(p1, p2) {
+				let minX = Math.pow(p1.x - p2.x, 2)
+				let minY = Math.pow(p1.y - p2.y, 2)
+				let min = minX + minY
+				let m = Math.sqrt(min * 3) / 2
+				console.log(m)
+			}
+			test({
+				x: 10,
+				y: 10
+			}, {
+				x: 20,
+				y: 20
+			})
+		</script>
+	</body>
+</html>
