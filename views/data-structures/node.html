@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>二叉树</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>树是计算机科学中常用到的一种数据结构，非线形的</p>
+			<p>二叉树是一组特殊的树状结构</p>
+			<p>二叉树号称查找速度非常快-相对于链表而言</p>
+			<p>添加删除也非常快-相对于数组而言</p>
+			<hr />
+			<p>数由一组以边连接的节点组成</p>
+			<p>公司的组织结构就是一个树状的例子</p>
+			<p>父子节点的关系参考dom树</p>
+			<p>二叉树的特殊是，字节点的个数不超过2个</p>
+			<p>树状结构和现实中的树是反过来的</p>
+			<p>根在上面</p>
+			<hr />
+			<p>看的稀里糊涂的，没有现实场景的看，嗯应该说没有实际可靠的实现的源码，研究这种东西实在是没啥意思</p>
+		</div>
+		<script type="text/javascript">
+			// 注意 这里不是树 是节点
+			function Node (data, left, right) {
+				this.data = data
+				this.left = left
+				this.right = right
+			}
+			Node.prototype.show = function () {
+				return this.data
+			}
+
+			// 这里才是树
+			function BST () {
+				this.root = null
+			}
+			BST.prototype.insert = function (data) {
+				let node = new Node(data, null, null)
+				if (this.root === null) {
+					this.root = node
+				} else {
+					let current = this.root
+					let parent
+					while (true) {
+						parent = current
+						if (data < current.data) {
+							current = current.left
+							if (current === null) {
+								parent.left = node
+								break
+							}
+						} else {
+							current = current.right
+							if (current === null) {
+								parent.right = node
+								break
+							}
+						}
+					}
+				}
+			}
+
+			// 中序
+			BST.prototype.inOrder = function (node) {
+				if (node !== null) {
+					this.inOrder(node.left)
+					console.log(node.show() + '')
+					this.inOrder(node.right)
+				}
+			}
+
+			// 前序
+			BST.prototype.preOrder = function () {
+				if (node !== null) {
+					console.log(node.show() + '')
+					this.preOrder(node.left)
+					this.preOrder(node.right)
+				}
+			}
+
+			// 后序
+			BST.prototype.postOrder = function () {
+				if (node !== null) {
+					this.postOrder(node.left)
+					this.postOrder(node.right)
+					console.log(node.show() + '')
+				}
+			}
+
+			BST.prototype.getMin = function () {
+				var current = this.root
+				while (current.left !== null) {
+					current = current.left
+				}
+				return current
+			}
+			BST.prototype.getMax = function () {
+				var current = this.root
+				while (current.right !== null) {
+					current = current.right
+				}
+				return current
+			}
+
+			BST.prototype.find = function (data) {
+				var current = this.root
+				while (current !== null) {
+					if (current.data === data) {
+						return current
+					} else if (data < current.data) {
+						current = current.left
+					} else {
+						current = current.right
+					}
+				}
+				return current
+			}
+
+			BST.prototype.remove = function (data) {
+				root = removeNode(this.root, data)
+				function removeNode (node, data) {
+					if (node === null) {
+						return null
+					}
+					if (data == node.data) {
+						if (node.left === null && node.right === null) {
+							return null
+						}
+						if (node.left === null) {
+							return node.right
+						}
+						if (node.right === null) {
+							return node.left
+						}
+						// var tempNode = getSmallest(node.right)
+						// node.data = tempNode.data
+						// node.right = removeNode(node.right, tempNode.data)
+						return node
+					} else if (data < node.data) {
+						node.left = removeNode(node.left, data)
+						return node
+					} else {
+						node.right = removeNode(node.right, data)
+						return node
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

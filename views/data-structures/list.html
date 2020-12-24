@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>list</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<dl>
+				<dt>属性</dt>
+				<dd>listSize: 列表元素个数</dd>
+				<dd>pos: 列表当前位置</dd>
+				<dd>length: 返回列表中元素个数</dd>
+			</dl>
+			<dl>
+				<dt>方法</dt>
+				<dd>clear: 清空列表中所有元素</dd>
+				<dd>toString: 返回列表的字符串格式</dd>
+				<dd>find: 返回当前位置的元素</dd>
+				<dd>insert: 在现有元素后插入新元素</dd>
+				<dd>append: 在列表的末尾插入新元素</dd>
+				<dd>remove: 从列表中删除元素</dd>
+				<dd>front: 将列表的当前位置移动到第一个元素</dd>
+				<dd>end: 将列表的当前位置移动到最后一个元素</dd>
+				<dd>prev: 将当前位置后移一位</dd>
+				<dd>next: 将当前位置前移一位</dd>
+				<dd>currPos: 返回列表的当前位置</dd>
+				<dd>moveTo: 将当前位置移动到指定位置</dd>
+			</dl>
+		</div>
+		<script type="text/javascript">
+			function List() {
+				this.listSize = 0
+				this.pos = 0
+				this.dataStore = []
+			}
+			List.prototype.length = function () {
+				return this.listSize
+			}
+			List.prototype.find = function (elem) {
+				for (var i = 0;i < this.dataStore.length;i++) {
+					if (this.dataStore[i] === elem) {
+						return i
+					}
+				}
+				return -1
+			}
+			List.prototype.contains = function (elem) {
+				for (var i = 0;i < this.dataStore.length;i++) {
+					if (this.dataStore[i] === elem) {
+						return true
+					}
+				}
+				return false
+			}
+			List.prototype.clear = function () {
+				this.listSize = 0
+				this.pos = 0
+				this.dataStore = []
+			}
+			List.prototype.append = function (elem) {
+				this.dataStore[this.listSize++] = elem
+			}
+			List.prototype.remove = function (elem) {
+				let idx = this.find(elem)
+				if (idx > -1) {
+					this.dataStore.splice(idx, 1)
+					--this.listSize
+					return true
+				}
+				return false
+			}
+			List.prototype.toString = function () {
+				return this.dataStore.join(',')
+			}
+			List.prototype.insert = function (elem, after) {
+				var idx = this.find(after)
+				if (idx > -1) {
+					this.dataStore.splice(idx + 1, 0, elem)
+					++this.listSize
+					return true
+				}
+				return false
+			}
+			List.prototype.front = function () {
+				this.pos = 0
+			}
+			List.prototype.end = function () {
+				this.pos = this.listSize - 1
+			}
+			List.prototype.prev = function () {
+				if (this.pos > 0) {
+					--this.pos
+				}
+			}
+			List.prototype.next = function () {
+				if (this.pos < this.listSize) {
+					++this.pos
+				}
+			}
+			List.prototype.currPos = function () {
+				return this.pos
+			}
+			List.prototype.moveTo = function (pos) {
+				this.pos = pos
+			}
+		</script>
+	</body>
+</html>

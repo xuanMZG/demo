@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>dictionary</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>字典是以键值对形式存储数据的数据结构</p>
+			<p>类似于电话号码本的形式</p>
+			<p>js内的object就是以字典形式设计的</p>
+			<p>剩下的在源码里</p>
+		</div>
+		<script type="text/javascript">
+			function Dictional () {
+				this.dataStore = {}
+			}
+			Dictional.prototype.add = function (key, elem) {
+				this.dataStore[key] = elem
+			}
+			Dictional.prototype.find = function (key) {
+				return this.dataStore[key]
+			}
+			Dictional.prototype.remove = function (key) {
+				delete this.dataStore[key]
+			}
+			Dictional.prototype.count = function () {
+				return Object.keys(this.dataStore).length
+			}
+			Dictional.prototype.clear = function () {
+				for (let key in this.dataStore) {
+					delete this.dataStore[key]
+				}
+			}
+		</script>
+	</body>
+</html>

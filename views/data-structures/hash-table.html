@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>hash table</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>散列：散列表</p>
+			<p>插入、删除 速度非常快，查询速度慢</p>
+			<p>基于数组设计的，固定长度，可拓展</p>
+			<p>说实际点，就是一个数组里面套链表</p>
+			<p>制定各种规则尽量平均分配到不同空间</p>
+			<p>分配相同就在那个位置放一个链表</p>
+			<p>按常规估计，超过75%, 就会拓展数组，实际上并没有明确规定,拓展方式是长度翻倍</p>
+			<p>一个空间内存储的链表长度超过8就会转化为树状结构，减少的时候长度小于6就转化回链表，留了2个长度，防止频繁变换</p>
+			<p>剩下的在源码里</p>
+		</div>
+		<script type="text/javascript">
+			function HashTable () {
+				this.table = new Array(137)
+			}
+			HashTable.prototype.simpleHash = function (elems) {
+				var total = 0
+				for (var i = 0;i < elems.length;i++) {
+					total += elems.charCodeAt(i)
+				}
+				return total % this.table.length
+			}
+			HashTable.prototype.betterHash = function (str) {
+				const H = 37
+				var total = 0
+				for (var i = 0;i < str.length;i++) {
+					total += H * total + str.charCodeAt(i)
+				}
+				total = total % this.table.length
+				if (total < 0) {
+					total += this.table.length - 1
+				}
+				return parseInt(total)
+			}
+			// HashTable.prototype.put = function (elems) {
+			// 	var pos = this.simpleHash(elems)
+			// 	this.table[pos] = elems
+			// }
+			// HashTable.prototype.get = function (key) {
+			// 	return this.table[this.betterHash(key)]
+			// }
+			HashTable.prototype.put = function (key, elems) {
+				var pos = this.simpleHash(key)
+				var  idx = 0
+				if (this.table[pos][idx] === undefined) {
+					this.table[pos][idx + 1] = elems
+				} else {
+					while (this.table[pos][idx] !== undefined) {
+						++idx
+					}
+					this.table[pos][idx + 1] = elems
+				}
+			}
+			HashTable.prototype.get = function (key) {
+				var idx = 0
+				var hash = this.betterHash(key)
+				if (this.table[pos][idx] === key) {
+					return this.table[pos][idx + 1]
+				} else {
+					while (this.table[pos][idx] !== key) {
+						idx += 2
+					}
+					return this.table[pos][idx + 1]
+				}
+				return undefined
+			}
+			HashTable.prototype.buildChains = function () {
+				for (var i = 0;i < this.table.length;i++) {
+					this.table[i] = []
+				}
+			}
+			HashTable.prototype.showDistro = function () {
+				var n = 0
+				for (var i = 0;i < this.table.length;i++) {
+					if (this.table[i] !== undefined) {
+						console.log(i + ': ' + this.table[i])
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

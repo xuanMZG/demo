@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>list</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>队列也是一种特殊的列表</p>
+			<p>队列只能在队尾插入，队首删除</p>
+			<p>就是先进后出</p>
+			<p>比较污但是比较确切的比较就是，吃了拉</p>
+			<p>剩下的在源码里</p>
+		</div>
+		<script type="text/javascript">
+			function Queue () {
+				this.dataStore = []
+			}
+			Queue.prototype.isEmpty = function () {
+				return !this.dataStore.length
+			}
+			Queue.prototype.toString = function () {
+				return this.dataStore.join(',')
+			}
+			Queue.prototype.enqueue = function (elem) {
+				this.dataStore.push(elem)
+			}
+			Queue.prototype.dequeue = function (elem) {
+				if (!this.isEmpty()) {
+					this.dataStore.shift()
+				}
+			}
+			Queue.prototype.front = function (elem) {
+				return this.dataStore[0]
+			}
+			Queue.prototype.back = function (elem) {
+				return this.dataStore[this.dataStore.length - 1]
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>array</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p><b>数组是原生自带的，没什么好说的</b></p>
+			<p>4个方法: shift unshift push pop</p>
+			<p>string->array: split</p>
+			<p>array->string: join</p>
+			<p>add、delete: splice</p>
+			<p>所以 我想起来深clone、浅clone，这里顺便总结下:</p>
+			<br />
+			<p>都在源码里了 去script标签里看吧</p>
+		</div>
+		<!--引入base.js 需要其中判断数据类似方法-->
+		<script src="../../js/base.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			/**
+			** 比较简单的浅拷贝方法
+			** 直接循环，一层拷贝
+			** 有说法asign可以实现一层深拷贝
+			** 这个我不太确定，对这个说法有些迷惑
+			***/
+			function cloneEasy(data) {
+				if (!data) {
+					return data
+				}
+				if (base.isArray(data)) {
+					let _data = []
+					for (let i = 0;i < data.length;i++) {
+						_data.push(data[i])
+					}
+					return _data
+				}
+				if (base.isObject(data)) {
+					let _data = {}
+					for (let key in data) {
+						_data[key] = data[key]
+					}
+					return _data
+				}
+				return data
+			}
+
+			/**
+			** 目前最简单的深clone方式
+			** 弊端是 function、null、undefined、symbol 会出现问题
+			** 循环引用的话 会报错
+			***/
+			function cloneDeep1(data) {
+				return JSON.parse(JSON.stringify(data))
+			}
+
+			/**
+			** 一个比较的深clone方式
+			** 弊端是未解决循环引用的问题，会陷入死循环
+			***/
+			function cloneDeep2(data) {
+				if (!data) return data
+				let result
+				if (base.isObject(data)) {
+					result = {}
+					for (let key in data) {
+						if (base.isObject(data[key]) || base.isArray(data[key])) {
+							result[key] = cloneDeep(data[key])
+						} else {
+							result[key] = data[key]
+						}
+					}
+					return result
+				}
+				if (base.isArray(data)) {
+					result = []
+					for (let i = 0;i < data.length;i++) {
+						if (base.isObject(data[key]) || base.isArray(data[key])) {
+							result[i] = cloneDeep(data[i])
+						} else {
+							result[i] = data[i]
+						}
+					}
+					return result
+				}
+				return data
+			}
+
+			/**
+			** 琢磨了半天 放弃了
+			** 水平不够
+			** 有兴趣的还是去参考lodash的源码吧
+			** 这里我只有能力考虑直系的父级循环引用
+			** 但是没有水平搞定同级别的引用
+			** 以及跨其他分支的引用
+			** 例如
+			var obj = {
+				a: 1,
+				b: {
+					x: 1
+				},
+				c: {
+					x: 1
+				},
+				d: {
+					x: 1,
+					y: {
+						m: 1
+					}
+				}
+			}
+			obj.c.y = obj.b
+			obj.d.z = obj.d.y
+			obj.e = obj
+			** 实际解决方案应该还是缓存各个复杂数据类型 用于比较是否和当前的相等
+			***/
+			// function cloneDeep3(data) {
+			// 	function cloneBase(data, oldPars, newPars) {
+			// 		if (!data) return data
+			// 		let result
+			// 		oldPars = oldPars || []
+			// 		newPars = newPars || []
+			// 		if (base.isObject(data)) {
+			// 			result = {}
+			// 			for (let key in data) {
+			// 				if (base.isObject(data[key]) || base.isArray(data[key])) {
+			// 					let bFlag = false
+			// 					let item
+			// 					for (let k = 0;k < oldPars.length;k++) {
+			// 						if (oldPars[k] === data[key]) {
+			// 							item = newPars[k]
+			// 							bFlag = true
+			// 						}
+			// 					}
+			// 					if (bFlag) {
+			// 						result[key] = cloneBase(data[key], [...oldPars, data[key]], [...newPars, result[key]])
+			// 					} else {
+			// 						result[key] = cloneBase(data[key])
+			// 					}
+			// 				} else {
+			// 					result[key] = data[key]
+			// 				}
+			// 			}
+			// 			return result
+			// 		}
+			// 		if (base.isArray(data)) {
+			// 			result = []
+			// 			for (let i = 0;i < data.length;i++) {
+			// 				if (base.isObject(data[key]) || base.isArray(data[key])) {
+			// 					let bFlag = false
+			// 					let item
+			// 					for (let k = 0;k < oldPars.length;k++) {
+			// 						if (oldPars[k] === data[key]) {
+			// 							item = newPars[k]
+			// 							bFlag = true
+			// 						}
+			// 					}
+			// 					if (bFlag) {
+			// 						result[i] = cloneBase(data[i], [...oldPars, data[i]], [...newPars, result[i]])
+			// 					} else {
+			// 						result[i] = cloneBase(data[i])
+			// 					}
+			// 				} else {
+			// 					result[i] = data[i]
+			// 				}
+			// 			}
+			// 			return result
+			// 		}
+			// 		return data
+			// 	}
+			// }
+		</script>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>list</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>栈是一种特殊的列表</p>
+			<p>只能在栈顶添加或删除</p>
+			<p>就是先进后出</p>
+			<p>比较污但是比较确切的比较就是，吃了吐</p>
+			<p>剩下的在源码里</p>
+		</div>
+		<script type="text/javascript">
+			function Stack () {
+				this.dataStore = []
+				this.top = 0
+			}
+			Stack.prototype.length = function (elem) {
+				return this.top
+			}
+			Stack.prototype.clear = function (elem) {
+				this.top = 0
+				this.dataStore = []
+			}
+			Stack.prototype.push = function (elem) {
+				this.dataStore[this.top++] = elem
+			}
+			Stack.prototype.pop = function () {
+				return this.dataStore[--this.top]
+			}
+			Stack.prototype.peak = function () {
+				return this.dataStore[this.top - 1]
+			}
+
+			/**
+			** 转换进制
+			***/
+			function mulBase (num, base) {
+				var s = new Stack()
+				do {
+					s.push(num % base)
+					num = Math.floor(num /= base)
+				} while (num > 0)
+				var converted = ''
+				while (s.length() > 0) {
+					converted += s.pop()
+				}
+				return converted
+			}
+			console.log(mulBase(32, 2) + '') // 32转二进制
+			console.log(mulBase(125, 8) + '') // 125转八进制
+			
+			/**
+			** 判断是否为回文
+			***/
+			function isPalindrome (word) {
+				var s = new Stack()
+				for (var i = 0;i < word.length;i++) {
+					s.push(word[i])
+				}
+				var rword = ''
+				while (s.length() > 0) {
+					rword += s.pop()
+				}
+
+				if (word === rword) {
+					return true
+				}
+				return false
+			}
+			console.log(isPalindrome('hello'))
+			console.log(isPalindrome('racecar'))
+
+			/**
+			** 求阶乘
+			** 这是一个比较常规的方法
+			** 递归
+			** 其实循环乘也一样  这个不是必然要递归的
+			***/
+			// function fact (n) {
+			// 	if (n === 0) {
+			// 		return 1
+			// 	} else {
+			// 		return n * fact(n-1)
+			// 	}
+			// }
+			/**
+			** 同样是求阶乘
+			** 感觉这个的思维成本要比循环和递归都高
+			** 并不是一个很好的例子
+			***/
+			function fact (n) {
+				var s = new Stack()
+				while (n > 1) {
+					s.push(n--)
+				}
+				var num = 1
+				while (s.length() > 0) {
+					num *= s.pop()
+				}
+				return num
+			}
+			console.log(fact(5))
+		</script>
+	</body>
+</html>

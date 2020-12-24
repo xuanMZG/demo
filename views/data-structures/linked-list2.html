@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>linked list</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>链表是一组节点组成的集合</p>
+			<p>每个节点都使用一个对象的引用指向它的后继</p>
+			<p>指向另一个节点的引用叫做链</p>
+			<p>链表分单向链表、双向链表循环链表</p>
+			<p>循环链表就是单向链表创建的时候的head的next等于它本身</p>
+			<p>也就是尾部的next为head</p>
+			<p>和数组比就是 查找慢 修改快</p>
+			<p>剩下的在源码里</p>
+		</div>
+		<script type="text/javascript">
+			function Node (elem) {
+				this.element = elem
+				this.prev = null
+				this.next = null
+			}
+			function LinkedList () {
+				this.head = new Node('head')
+			}
+			LinkedList.prototype.find = function (elem) {
+				var currentNode = this.head
+				while (currentNode.element != elem) {
+					currentNode = currentNode.next
+				}
+				return currentNode
+			}
+			LinkedList.prototype.findLast = function (elem) {
+				var currentNode = this.head
+				while (currentNode.next != elem) {
+					currentNode = currentNode.next
+				}
+				return currentNode
+			}
+			LinkedList.prototype.insert = function (elem, item) {
+				var newNode = new Node(elem)
+				var curr = this.find(item)
+				newNode.prev = curr
+				newNode.next = curr.next
+				curr.next = newNode
+			}
+			LinkedList.prototype.remove = function (elem) {
+				var curr = this.find(elem)
+				if (curr.next !== null) {
+					curr.prev.next = curr.next
+					curr.next.prev = curr.prev
+					curr.next = null
+					curr.prev = null
+				}
+			}
+			LinkedList.prototype.display = function () {
+				var curr = this.head
+				while ((curr.next !== null)) {
+					curr = curr.next
+				}
+			}
+			LinkedList.prototype.disReverse = function () {
+				var curr = this.head
+				curr = this.findLast()
+				while ((curr.prev !== null)) {
+					curr = curr.prev
+				}
+			}
+		</script>
+	</body>
+</html>
