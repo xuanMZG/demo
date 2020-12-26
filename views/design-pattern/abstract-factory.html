@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>abstract factory</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>抽象工厂模式，就是在工厂模式上再进一步，变成工厂的工厂</p>
+			<p>好处是给工厂做了一个统一的出入口，也方便了日后对这个工厂的修改</p>
+			<p>剩下看源码吧</p>
+		</div>
+		<script type="text/javascript">
+			// 这里我想用形状来举例子
+			class Factory {
+				static getFactory(type) {
+					switch (type) {
+						case 'shape':
+							return new ShapeFactory()
+						case 'color':
+							return new ColorFactory()
+					}
+				}
+			}
+
+			class ShapeFactory {
+				getShape(type) {
+					switch (type) {
+						case 'circle':
+							return new Circle()
+						case 'rectangle':
+							return new Rectangle()
+						case 'square':
+							return new Square()
+					}
+				}
+			}
+
+			class ColorFactory {
+				getColor(type) {
+					switch (type) {
+						case 'red':
+							return new Red()
+						case 'yellow':
+							return new Yellow()
+						case 'black':
+							return new Black()
+					}
+				}
+			}
+
+			class Circle {
+				draw() {
+					console.log('a circle')
+				}
+			}
+			class Rectangle {
+				draw() {
+					console.log('a rectangle')
+				}
+			}
+			class Square {
+				draw() {
+					console.log('a square')
+				}
+			}
+			class Red {
+				fill() {
+					console.log('fill red')
+				}
+			}
+			class Yellow {
+				fill() {
+					console.log('fill yellow')
+				}
+			}
+			class Black {
+				fill() {
+					console.log('fill black')
+				}
+			}
+
+			let s = Factory.getFactory('shape')
+
+			var s1 = s.getShape('circle')
+			var s2 = s.getShape('rectangle')
+			var s3 = s.getShape('square')
+			s1.draw()
+			s2.draw()
+			s3.draw()
+
+			let c = Factory.getFactory('color')
+			var c1 = c.getColor('red')
+			var c2 = c.getColor('yellow')
+			var c3 = c.getColor('black')
+			c1.fill()
+			c2.fill()
+			c3.fill()
+		</script>
+	</body>
+</html>

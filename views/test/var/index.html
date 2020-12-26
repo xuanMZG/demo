@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>var count</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			.container{
+				width: 1080px;margin: 100px auto;
+			}
+			.span-block{
+				float: left;
+				width: 33.33%;
+				margin-bottom: 50px;
+			}
+			.clear{
+				clear: both;
+			}
+
+			/*$color-list: #f66 #66f #f90 #09f #9c3 #3c9;*/
+			.hover-tips {
+			    display: flex;
+			    justify-content: space-between;
+			    width: 200px;
+			}
+			.hover-tips li {
+		        position: relative;
+		        padding: 2px;
+		        border: 2px solid transparent;
+		        border-radius: 100%;
+		        width: 24px;
+		        height: 24px;
+		        background-clip: content-box;
+		        cursor: pointer;
+		        transition: all 300ms;
+		        list-style-type: none;
+		    }
+		    .hover-tips li::before,
+	        .hover-tips li::after {
+	            position: absolute;
+	            left: 50%;
+	            bottom: 100%;
+	            opacity: 0;
+	            transform: translate3d(0, -30px, 0);
+	            transition: all 300ms;
+	        }
+	        .hover-tips li::before {
+	            margin: 0 0 12px -35px;
+	            border-radius: 5px;
+	            width: 70px;
+	            height: 30px;
+	            background-color: rgba(0, 0, 0, .5);
+	            line-height: 30px;
+	            text-align: center;
+	            color: #fff;
+	            content: attr(data-name);
+	        }
+	        .hover-tips li::after {
+	            margin-left: -6px;
+	            border: 6px solid transparent;
+	            border-top-color: rgba(0, 0, 0, .5);
+	            width: 0;
+	            height: 0;
+	            content: "";
+	        }
+	        .hover-tips li:nth-child(1) {
+	            background-color: #f66;
+	        }
+	        .hover-tips li:nth-child(1):hover {
+                border-color: #f66;
+            }
+            .hover-tips li:nth-child(2) {
+	            background-color: #66f;
+	        }
+	        .hover-tips li:nth-child(2):hover {
+                border-color: #66f;
+            }
+            .hover-tips li:nth-child(3) {
+	            background-color: #f90;
+	        }
+	        .hover-tips li:nth-child(3):hover {
+                border-color: #f90;
+            }
+            .hover-tips li:nth-child(4) {
+	            background-color: #09f;
+	        }
+	        .hover-tips li:nth-child(4):hover {
+                border-color: #09f;
+            }
+            .hover-tips li:nth-child(5) {
+	            background-color: #9c3;
+	        }
+	        .hover-tips li:nth-child(5):hover {
+                border-color: #9c3;
+            }
+            .hover-tips li:nth-child(6) {
+	            background-color: #3c9;
+	        }
+	        .hover-tips li:nth-child(6):hover {
+                border-color: #3c9;
+            }
+	        .hover-tips li:hover::before,
+            .hover-tips li:hover::after {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+	        }
+
+	        .state-ball {
+			    overflow: hidden;
+			    position: relative;
+			    padding: 5px;
+			    border: 3px solid #3c9;
+			    border-radius: 100%;
+			    width: 150px;
+			    height: 150px;
+			    background-color: #fff;
+			    
+			}
+			.state-ball .wave {
+		        position: relative;
+		        border-radius: 100%;
+		        width: 100%;
+		        height: 100%;
+		        background-image: linear-gradient(to bottom, #af8 13%, #3c9 91%);
+		    }
+
+		    .state-ball-animate {
+				overflow: hidden;
+				position: relative;
+				padding: 5px;
+				border: 3px solid #3c9;
+				border-radius: 100%;
+				width: 150px;
+				height: 150px;
+				background-color: #fff;
+			}
+			.state-ball-animate::before, .state-ball-animate::after {
+				position: absolute;
+				left: 50%;
+				bottom: 5px;
+				z-index: 9;
+				margin-left: -100px;
+				width: 200px;
+				height: 200px;
+				content: "";
+			}
+			.state-ball-animate::before {
+				margin-bottom: calc(var(--offset) * 1.34px);
+				border-radius: 45%;
+				background-color: rgba(255, 255, 255, 0.5);
+				animation: rotate 10s linear -5s infinite;
+			}
+			.state-ball-animate::after {
+				margin-bottom: calc(var(--offset) * 1.34px + 10px);
+				border-radius: 40%;
+				background-color: rgba(255, 255, 255, 0.8);
+				animation: rotate 15s infinite;
+			}
+			.state-ball-animate .wave {
+				position: relative;
+				border-radius: 100%;
+				width: 100%;
+				height: 100%;
+				background-image: linear-gradient(to bottom, #af8 13%, #3c9 91%);
+			}
+			.state-ball-animate .progress::after {
+				display: flex;
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 99;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+				font-weight: bold;
+				font-size: 16px;
+				color: #09f;
+				content: counter(progress) "%";
+				counter-reset: progress var(--offset);
+			}
+
+			@keyframes rotate {
+				to {
+					transform: rotate(1turn);
+				}
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="span-block">
+				<ul class="hover-tips">
+				    <li data-name="姨妈红"></li>
+				    <li data-name="基佬紫"></li>
+				    <li data-name="箩底橙"></li>
+				    <li data-name="姣婆蓝"></li>
+				    <li data-name="大粪青"></li>
+				    <li data-name="原谅绿"></li>
+				</ul>
+			</div>
+			<div class="span-block">
+				<div class="state-ball">
+				    <div class="wave"></div>
+				</div>
+
+			</div>
+			<div class="span-block">
+				<div class="state-ball-animate" style="--offset: 0;">
+				    <div class="wave"></div>
+				    <div class="progress"></div>
+				</div>
+
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		<script type="text/javascript">
+			var oState = document.querySelector('.state-ball-animate')
+			var start = 0
+
+			setInterval(function () {
+				start += 1
+				start = start > 100 ? 0 : start
+				oState.setAttribute('style', '--offset:' + start)
+			}, 200)
+		</script>
+	</body>
+</html>

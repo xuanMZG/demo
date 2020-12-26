@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>builder</title>
+		<style type="text/css">
+			.container{width: 1080px;margin: 20px auto;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>让简单的对象通过组合的方式构造成多种复杂对象。</p>
+			<p>这是一种创建复杂对象的最佳实践。尤其是复杂对象多变的情况下，通过基础组件来组合，在基础组件变更时，多种依赖于基础组件的复杂组件也能方便变更，而不需要更改多种不同的复杂组件</p>
+		</div>
+		<script type="text/javascript">
+			// 拿餐饮举例
+
+			// 先定义容器类型
+			class Wrapper { // 纸盒
+				pack() {
+			        return 'Wrapper'
+			    }
+			}
+			class Bottle { // 瓶子
+				pack() {
+					return 'Bottle'
+				}
+			}
+
+			// 定义基本食品类型
+			class Burger { // 汉堡
+				packing() { // 汉堡的包装是纸盒
+					return new Wrapper()
+				}
+			}
+			class ColdDrink { // 冷饮
+				packing() { // 冷饮的包装是瓶子
+					return new Bottle()
+				}
+			}
+
+			// 定义具体食品
+			
+			
+		</script>
+	</body>
+</html>

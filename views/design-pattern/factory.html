@@ -9,7 +9,65 @@
 	</head>
 	<body>
 		<div class="container">
-			
+			<p>写在前面</p>
+			<p>不用想了，研究设计模式要先熟悉面向对象</p>
+			<p>当然，面向对象我也细碎，就是知道人家这么写，我也跟着这么写</p>
+			<p>好处嘛，公认的处理复杂场景</p>
+			<hr />
+			<p>设计模式是前辈们总结的一些惯用套路</p>
+			<p>号称所有需求都包括在这些套路里面</p>
+			<p>其实我之前都不怎么想研究，但是这玩意吧面试好问(比较注重技术的公司)</p>
+			<p>对于js能实现几种并无把握</p>
+			<p>先研究看看</p>
+			<hr />
+			<p>工厂模式</p>
+			<p>意图：定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method 使一个类的实例化延迟到其子类</p>
+			<p>工厂应该是非常熟悉的一种模式了，来料加工</p>
+			<p>使用工厂模式的好处是显而易见的，比如实例的生产比较复杂，或者说生成实例后还需要额外加工，工厂给了我们一个统一的出入口，也方便了日后对这个实例修改。比如你要修改工厂产出是一个单例的时候，就不需要在所有的类中修改，而只要在工厂出口修改</p>
+			<p>剩下看源码吧</p>
 		</div>
+		<script type="text/javascript">
+			// 还是拿人来做类吧 男人 女人 其他
+			class Man {
+				print() {
+					console.log('a man')
+				}
+			}
+			class Woman {
+				print() {
+					console.log('a woman')
+				}
+			}
+			class Else {
+				print() {
+					console.log('else')
+				}
+			}
+
+			/**
+			** 此时Person就是一个工厂
+			** 根据不同的材料 生产出不同的人
+			***/
+			class Person {
+				getPerson(type) {
+					switch (type) {
+						case 'man':
+							return new Man()
+						case 'woman':
+							return new Woman()
+						case 'else':
+							return new Else()
+					}
+				}
+			}
+
+			var p = new Person()
+			var p1 = p.getPerson('man')
+			var p2 = p.getPerson('woman')
+			var p3 = p.getPerson('else')
+			p1.print()
+			p2.print()
+			p3.print()
+		</script>
 	</body>
 </html>

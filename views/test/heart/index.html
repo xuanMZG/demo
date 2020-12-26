@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>heart</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			.container{
+				width: 1080px;margin: 100px auto;
+			}
+			.span-block{
+				float: left;
+				width: 50%;
+				margin-bottom: 100px;
+			}
+			.clear{
+				clear: both;
+			}
+
+			.heart-shape {
+			    position: relative;
+			    width: 200px;
+			    height: 200px;
+			    background-color: #f66;
+			    transform: rotate(45deg);
+			}
+			.heart-shape::before, .heart-shape::after {
+		        position: absolute;
+		        left: 0;
+		        top: 0;
+		        border-radius: 100%;
+		        width: 100%;
+		        height: 100%;
+		        background-color: #f66;
+		        content: "";
+		    }
+		    .heart-shape::before {
+		        transform: translateX(-50%);
+		    }
+		    .heart-shape::after {
+		        transform: translateY(-50%);
+		    }
+
+		    .heart-shape2 {
+			    position: relative;
+			    width: 200px;
+			    height: 200px;
+			    background-color: #f66;
+			    transform: rotate(45deg);
+			}
+			.heart-shape2::before, .heart-shape2::after {
+		        position: absolute;
+		        left: 0;
+		        top: 0;
+		        border-radius: 100%;
+		        width: 100%;
+		        height: 100%;
+		        content: "";
+		    }
+		    .heart-shape2::before {
+		    	background-color: #f90;
+		        transform: translateX(-50%);
+		    }
+		    .heart-shape2::after {
+		    	background-color: #09f;
+		        transform: translateY(-50%);
+		    }
+			
+			.gradient-heart-shape {
+			    position: relative;
+			    width: 200px;
+			    height: 200px;
+			    background-image: linear-gradient(to bottom, #09f, #f66);
+			    box-shadow: 0 0 20px rgba(#000, .8);
+			    transform: rotate(45deg);
+			    
+			}
+			.gradient-heart-shape::before,
+		    .gradient-heart-shape::after {
+		        position: absolute;
+		        left: 0;
+		        top: 0;
+		        border-radius: 100%;
+		        width: 100%;
+		        height: 100%;
+		        content: "";
+		    }
+		    .gradient-heart-shape::before {
+		        background-image: linear-gradient(to bottom, #09f, #f66);
+		        transform: translateX(-50%);
+		    }
+		    .gradient-heart-shape::after {
+		        background-image: linear-gradient(to bottom, #3c9, #09f 50%, transparent 50%, transparent);
+		        transform: translateY(-50%);
+		    }
+
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="span-block">
+				<div class="heart-shape"></div>
+			</div>
+			<div class="span-block">
+				<div class="heart-shape2"></div>
+			</div>
+			<div class="span-block">
+				<div class="gradient-heart-shape"></div>
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+	</body>
+</html>
