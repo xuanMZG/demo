@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="https://cdn.bootcss.com/zrender/4.0.7/zrender.min.js"></script>
+	<style type="text/css">
+		html, body{height: 100%;}
+		#main{width: 100%;height: 100%;}
+	</style>
+</head>
+<body>
+	<div id="main"></div>
+	<script type="text/javascript">
+		var zr = zrender.init(document.getElementById('main'));
+		var circle = new zrender.Circle({
+		    shape: {
+		        cx: 150,
+		        cy: 50,
+		        r: 40
+		    },
+		    style: {
+		        fill: 'none',
+		        stroke: '#F00'
+		    },
+		    silent: true
+		});
+		zr.add(circle);
+		circle.attr('shape', {
+		    r: 50 // 只更新 r。cx、cy 将保持不变。
+		});
+		circle.animate('shape', false).when(1000, {
+			r: 300
+		}).when(3000, {
+			cx: 600
+		}).start();
+		// var w = zr.getWidth();
+	 //    var h = zr.getHeight();
+
+	 //    var r = 30;
+	 //    var circle = new zrender.Circle({
+	 //        shape: {
+	 //            cx: r,
+	 //            cy: h / 2,
+	 //            r: r
+	 //        },
+	 //        style: {
+	 //            fill: 'transparent',
+	 //            stroke: '#FF6EBE'
+	 //        },
+	 //        silent: true
+	 //    });
+
+	 //    circle.animate('shape', true)
+	 //        .when(5000, {
+	 //            cx: w - r
+	 //        })
+	 //        .when(10000, {
+	 //            cx: r
+	 //        })
+	 //        .start();
+
+	 //    zr.add(circle);
+	</script>
+</body>
+</html>

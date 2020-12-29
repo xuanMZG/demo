@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>calendar</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;border: 0;box-sizing: border-box;}
+			.container{
+				width: 1080px;
+				margin: 20px auto;
+			}
+			.clear{clear: both;}
+
+			.calendar-container{
+
+			}
+			.calendar-title-item{
+				float: left;
+				width: 14.28%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				border: 1px solid #ccc;
+			}
+			.calendar-content-item{
+				float: left;
+				width: 14.28%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				border: 1px solid #ccc;
+			}
+
+			.cal-header{
+				display: flex;
+				border-bottom: 1px solid #ccc;
+				border-top: 1px solid #ccc;
+			}
+			.cal-header-btn{
+				width: 40px;
+				height: 40px;
+				border-left: 1px solid #ccc;
+				border-right: 1px solid #ccc;
+				cursor: pointer;
+				text-align: center;
+				line-height: 40px;
+			}
+			.cal-header-main{
+				flex: 1;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+			}
+			.cal-title{
+				display: flex;
+				border-left: 1px solid #ccc;
+			}
+			.cal-title-item{
+				text-align: center;
+				flex: 1;
+				line-height: 40px;
+				border-right: 1px solid #ccc;
+			}
+			.cal-body{
+				display: flex;
+				flex-wrap: wrap;
+				border-top: 1px solid #ccc;
+				border-left: 1px solid #ccc;
+			}
+			.cal-body-item{
+				width: 14.28%;
+				text-align: center;
+				line-height: 40px;
+				border-right: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<p>从业以来遇到的第一个难题就是日历，后来还是采用组件，但样式没有处理的和设计稿一致，一直有执念，要试试</p>
+			<p>此处记录我当前做一个日历的思考思考逻辑过程</p>
+			<h5>第一个先弄出当前月份的展示</h5>
+			<div class="calendar-container">
+				<!-- 表头无所谓了 日到六  还是一到日 都行 我先按照习惯 日在前 -->
+				<div class="calendar-title">
+					<div class="calendar-title-item">日</div>
+					<div class="calendar-title-item">一</div>
+					<div class="calendar-title-item">二</div>
+					<div class="calendar-title-item">三</div>
+					<div class="calendar-title-item">四</div>
+					<div class="calendar-title-item">五</div>
+					<div class="calendar-title-item">六</div>
+					<div class="clear"></div>
+				</div>
+				<div class="calendar-content">
+					<div class="clear"></div>
+				</div>
+			</div>
+			<p>这样循环的逻辑大致就有了</p>
+			<p>接下来完善完善</p>
+			<div class="cal-container">
+				<div class="cal-header">
+					<div class="cal-header-btn">&lt;</div>
+					<div class="cal-header-main"></div>
+					<div class="cal-header-btn">&gt;</div>
+				</div>
+				<div class="cal-title">
+					<div class="cal-title-item">日</div>
+					<div class="cal-title-item">一</div>
+					<div class="cal-title-item">二</div>
+					<div class="cal-title-item">三</div>
+					<div class="cal-title-item">四</div>
+					<div class="cal-title-item">五</div>
+					<div class="cal-title-item">六</div>
+				</div>
+				<div class="cal-body"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			// 这里先放几个公用方法  随时想到 随时添加
+			/**
+			** 根据入参获取一个日期对象
+			***/
+			function getRightDate (d) {
+				// safari不支持-格式的日期字符串
+				// 所以统一更换为/
+				return new Date(d.split('-').join('/'))
+			}
+			/**
+			** 根据一个日期对象 获取一个字符串格式的日期
+			***/
+			function getDayStr (day) {
+				var y = day.getFullYear()
+				var m = day.getMonth() + 1
+				var d = day.getDate()
+				m = m >= 10 ? m : '0' + m
+				d = d >= 10 ? d : '0' + d
+				return `${y}/${m}/${d}`
+			}
+
+			/**
+			** 获取一个月有多少天
+			***/
+			function getMonthDay(y, m) {
+				return new Date(y, m + 1, 0).getDate()
+			}
+
+			/**
+			** 获取某月第一天在周几
+			** 预计入参是个字符串
+			** 当然正常来说应该有一个统一判断的逻辑
+			** 再转换成统一的操作类型
+			** 我这里就都字符串了
+			***/
+			function getDayInWeek (day) {
+				// 算了 我这还是搞一个统一的方法处理日期数据吧
+				var date = getRightDate(day)
+				var y = date.getFullYear()
+				var m = date.getMonth() + 1
+				m = m >= 10 ? m : '0' + m
+				var nD = new Date(y + '/' + m + '/01')
+				return nD.getDay()
+			}
+
+			var nowMd = getDayStr(new Date())
+			var anowMd = nowMd.split('/')
+			var nowW = getDayInWeek(nowMd)
+			var mdays = getMonthDay(anowMd[0], anowMd[1])
+			console.log(nowMd, nowW, mdays) // 2020/12/28  2 31
+			// 这样就该获取上个月的信息以及下个月的信息
+
+			// 声明一个日期列表，往里面填充日期数据
+			var dayList = []
+			// 先根据一号是周几，往里面填充几个空白格占位
+			if (nowW) {
+				for (let i = 0;i < nowW;i++) {
+					dayList.push('')
+				}
+			}
+			// 循环当月
+			for (let i = 1;i <= mdays;i++) {
+				dayList.push(anowMd[0] + '/' + anowMd[1] + '/' + (i >= 10 ? i : '0' + i))
+			}
+			// 其实应该把下个月填进去几个补足占位的，懒了，下次维护
+
+			// 因为我的布局有个clear，所以我需要prepend方法不能用appendChild
+			// 每次都插入有点麻烦，所以用createDocumentFragment，统一插入
+			let fragment = document.createDocumentFragment()
+			for (let i = 0;i < dayList.length;i++) {
+				let dom = document.createElement('div')
+				dom.className = 'calendar-content-item'
+				let txt = document.createTextNode(dayList[i])
+				dom.appendChild(txt)
+				fragment.appendChild(dom)
+			}
+			var oCon = document.querySelector('.calendar-content')
+			// 这里感觉有点不通用，待后续实验、完善
+			oCon.insertBefore(fragment, oCon.children[0])
+			// 当月的已正常显示，前后两个月切换，今天懒得搞了，明天再继续
+
+			// 又开始了新的一天，显示的逻辑差不多了，但其实应该有更多的关注点
+			// 现在的布局是浮动，我考虑了一下，应该采用flex或者table
+			// 但是table要分行，每行7个，有点麻烦，最好都是兄弟节点，这样搞事情好搞
+			// 那我研究个统一的东西，处理这个逻辑
+
+			/**
+			** 依赖的公用方法库
+			***/
+			(function(w, u) {
+				let base = {
+					isArray: function(arr) {
+						return Object.prototype.toString.call(arr) === '[object Array]'
+					},
+					isString: function(str) {
+						return (typeof str == 'string') && str.constructor == String
+					},
+					isNumber: function(num) {
+						return Object.prototype.toString.call(num) === '[object Number]'
+					},
+					isObject: function(obj) {
+						return Object.prototype.toString.call(obj) === '[object Object]'
+					},
+					each: function (param, fn) {
+						if (this.isString(param) || this.isArray(param)) {
+							for (let i = 0;i < param.length;i++) {
+								fn(param[i], i)
+							}
+						} else if (this.isNumber(param)) {
+							for (let i = 0;i < param;i++) {
+								fn(i + 1, i)
+							}
+						} else if (this.isObject(param) && param.length) {
+							for (let i = 0;i < param.length;i++) {
+								fn(param[i], i)
+							}
+						} else {
+							fn(param)
+						}
+					},
+					getRightDate: function (d) {
+						return new Date(d.split('-').join('/'))
+					},
+					getDayStr: function (day) {
+						var y = day.getFullYear()
+						var m = day.getMonth() + 1
+						var d = day.getDate()
+						m = m >= 10 ? m : '0' + m
+						d = d >= 10 ? d : '0' + d
+						return `${y}/${m}/${d}`
+					},
+					getMonthDay: function (y, m) {
+						return new Date(y, m + 1, 0).getDate()
+					},
+					getDayInWeek: function (day) {
+						var date = getRightDate(day)
+						var y = date.getFullYear()
+						var m = date.getMonth() + 1
+						m = m >= 10 ? m : '0' + m
+						var nD = new Date(y + '/' + m + '/01')
+						return nD.getDay()
+					}
+				}
+				w.base = base
+			})(window);
+			/**
+			** 立即调用函数
+			** 局部声明变量避免污染全局
+			** 实参只有window
+			** 形参加个undefined，因为undefined值可变，寻找到真实的undefined值
+			** 当然undefined没啥用，至少我很少判断这个
+			** 抄的jquery的实现
+			** 依赖一个公用的方法库
+			***/
+			(function (w, u) {
+				let show = document.querySelector('.cal-header-main')
+				let body = document.querySelector('.cal-body')
+				// 这是一个蛋疼的事，date对象和字符串互相转来转去的
+
+			})(window)
+
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Expires" CONTENT="-1">
+        <meta http-equiv="Cache-Control" CONTENT="no-cache">
+        <meta http-equiv="Pragma" CONTENT="no-cache">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;box-sizing: border-box;border: 0;}
+			html, body{width: 100%;height: 100%}
+			.container{position: absolute;left: 0;top: 0;right: 0;bottom: 0;background: #000;}
+			.box1{position: absolute;left: 40%;top: 30%;font-size: 36px;color: red;transform: perspective(500px) translateZ(-200px);}
+			.box2{position: absolute;left: 50%;top: 40%;font-size: 28px;color: #fff;transform: perspective(500px) translateZ(-300px);}
+			.box3{position: absolute;left: 60%;left: 60%;top: 50%;font-size: 40px;color: yellow;transform: perspective(500px) translateZ(-400px);}
+		</style>
+	</head>
+	<body ontouchmove="return false">
+		<div class="container">
+			<div class="box1">aaa</div>
+			<div class="box2">bbb</div>
+			<div class="box3">ccc</div>
+		</div>
+		<script type="text/javascript">
+			var t1 = -200,
+				t2 = -300,
+				t3 = -400,
+				oBox1 = document.querySelectorAll('.box1')[0],
+				oBox2 = document.querySelectorAll('.box2')[0],
+				oBox3 = document.querySelectorAll('.box3')[0],
+				oContainer = document.querySelectorAll('.container')[0],
+				startx, starty;
+			oContainer.addEventListener('touchstart', function(e) {
+				startx = e.touches[0].pageX;
+				starty = e.touches[0].pageY;
+			}, false)
+			oContainer.addEventListener('touchmove', function(e) {
+				var endx = e.changedTouches[0].pageX,
+					endy = e.changedTouches[0].pageY;
+				if (endy > starty) {
+					t1 = -200 + (endy - starty) * 2
+					t2 = -300 + (endy - starty) * 2
+					t3 = -400 + (endy - starty) * 2
+				} else if (endy <= starty){
+					t1 = -200 - (starty - endy) * 2
+					t2 = -300 - (starty - endy) * 2
+					t3 = -400 - (starty - endy) * 2
+				}
+				oBox1.style.transform = 'perspective(500px) translateZ(' + t1 + 'px)';
+				oBox2.style.transform = 'perspective(500px) translateZ(' + t2 + 'px)';
+				oBox3.style.transform = 'perspective(500px) translateZ(' + t3 + 'px)';
+				e.preventDefault();
+			}, false)
+			oContainer.addEventListener('touchend', function(e) {
+
+			}, false);
+		</script>
+	</body>
+</html>
